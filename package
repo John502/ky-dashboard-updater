@@ -1,0 +1,19 @@
+#!/bin/bash
+python3 -m venv arcgis-lambda
+source ./arcgis-lambda/bin/activate
+pip install --upgrade pip 
+pip install requests --no-cache-dir 
+# pip install requests-toolbelt --no-cache-dir 
+# pip install setuptools_rust --no-cache-dir 
+# pip install requests_ntlm --no-cache-dir 
+# pip install ujson --no-cache-dir 
+# pip install pandas --no-cache-dir 
+# pip install numpy --no-cache-dir 
+# pip install arcgis --no-deps 
+pip freeze > requirements.txt
+deactivate
+cp kydashboardupdater.py arcgis-lambda/lib/python3.6/site-packages/kydashboardupdater.py
+cp lambda_function.py arcgis-lambda/lib/python3.6/site-packages/lambda_function.py
+cp -R gdh2auth arcgis-lambda/lib/python3.6/site-packages/gdh2auth
+cd arcgis-lambda/lib/python3.6/site-packages
+zip -r ../../../../kydashboardLambda.zip .
